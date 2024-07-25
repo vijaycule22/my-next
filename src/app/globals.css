@@ -2,32 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.card {
+  width: 206px;
+  height: 326px;
+  padding: 1rem;
+  background-image: url(/indBadge.svg);
+  background-size: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+  font-family: "Oswald", sans-serif;
 }
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.card .hero {
+  position: relative;
+  overflow: hidden;
+  height: 166px;
+} 
+.card .hero .role {
+  position: absolute;
+  top: 38px;
+  left: 22px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.card .hero .role span:nth-child(1) {
+  font-size: 26px;
+  font-weight: 700;
+}
+.card .hero .avatar {
+  height: 156px;
+  width: 150px;
+  overflow: hidden;
+  position: absolute;
+  right: -12px;
+}
+.card .title {
+  font-size: 20px;
+  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.card .stat {
+  justify-content: space-around;
+  margin: 0px 0;
+}
+.card .stat .stat-value {
+  font-weight: 600;
 }
