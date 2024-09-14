@@ -1,18 +1,37 @@
 "use client";
 import { Dialog, Button, Flex, TextField, Text } from "@radix-ui/themes";
+import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
 
-type CreateUser = {
-  name: string;
-  short_name: string;
-}
+type CreateTeam = {
+  team_id: number;
+  team_name: string;
+  short_name?: string;
+  team_logo?: string;
+  team_city?: string;
+  home_ground?: string;
+  owner?: string;
+  coach?: string;
+  captain?: string;
+  titles?: number;
+};
 
 const CreateTeam = () => {
   const { register, handleSubmit } = useForm();
 
   const onSubmitForm = (data: any) => {
     console.log(data);
+    postTeam(data);
+  };
+
+  const postTeam = async (data: CreateTeam) => {
+    try {
+      const res = await axios.post("/api/teams", data);
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
