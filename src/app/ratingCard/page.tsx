@@ -21,7 +21,9 @@ const RatingCard = () => {
   };
   return (
     <div>
-      <div className="card" ref={captureRef}>
+   <div className="flex">
+   <div className="flex justify-center gap-4 flex-col items-center">
+     <div className="card" ref={captureRef}>
         <div className="hero">
           <div className="role">
             <span>98</span>
@@ -49,6 +51,11 @@ const RatingCard = () => {
       <Button onClick={handleDownload}>
         <DownloadIcon /> Download
       </Button>
+     </div>
+     <div className="details">
+
+     </div>
+   </div>
     </div>
   );
 };

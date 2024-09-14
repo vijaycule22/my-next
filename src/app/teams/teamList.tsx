@@ -9,17 +9,21 @@ import React, { useEffect, useState } from "react";
 type Team = {
   team_id: number;
   team_name: string;
-  short_name: string;
-  team_logo: string;
-  team_city: string;
-  home_ground: string;
-  owner: string;
-  coach: string;
-  captain: string;
-  titles: number;
+  short_name?: string;
+  team_logo?: string;
+  team_city?: string;
+  home_ground?: string;
+  owner?: string;
+  coach?: string;
+  captain?: string;
+  titles?: number;
 };
 
+
+
 const TeamList = () => {
+
+
   const [teams, setTeams] = useState<Team[]>([]);
 
   useEffect(() => {

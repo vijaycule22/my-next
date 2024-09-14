@@ -3,8 +3,17 @@ import { Dialog, Button, Flex, TextField, Text } from "@radix-ui/themes";
 import React from "react";
 import { useForm } from "react-hook-form";
 
+type CreateUser = {
+  name: string;
+  short_name: string;
+}
+
 const CreateTeam = () => {
   const { register, handleSubmit } = useForm();
+
+  const onSubmitForm = (data: any) => {
+    console.log(data);
+  };
 
   return (
     <>
@@ -20,7 +29,7 @@ const CreateTeam = () => {
           </Dialog.Description>
 
           <form
-            onSubmit={handleSubmit((data) => console.log(data))}
+            onSubmit={handleSubmit((data) => onSubmitForm(data))}
             className="grid gap-4 grid-cols-2"
           >
             <label>
