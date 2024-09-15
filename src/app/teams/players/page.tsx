@@ -1,7 +1,27 @@
+'use client';
 import { Box, Card, Flex, Avatar, Text, Button } from "@radix-ui/themes";
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 const Players = () => {
+  const [playerList, setPlayers] = useState([]);
+
+
+  useEffect(() => {
+    getPlayersList();
+  }, []);
+
+  const getPlayersList = async () => {
+    try {
+      console.log('onfetch')
+      const res = await axios.get("/api/players");
+      setPlayers(res.data);
+    } catch (error) {
+      console.error("Error fetching teams:", error);
+    }
+  };
+
+
   return (
     <div>
       <div className="flex justify-between items-center mb-8">

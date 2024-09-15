@@ -14,6 +14,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// model Team {
+//   team_id     Int    @id @default(autoincrement())
+//   team_name   String @unique
+//   short_name  String
+//   team_logo   String
+//   team_city   String
+//   home_ground String @default("")
+//   owner       String @default("")
+//   coach       String @default("")
+//   captain     String @default("")
+//   titles      Int    @default(0)
+// }
+
+// model Player {
+//   team_id   Int
+//   player_id Int @id @default(autoincrement())
+// }
+
 model Team {
   team_id     Int    @id @default(autoincrement())
   team_name   String @unique
@@ -25,8 +43,18 @@ model Team {
   coach       String @default("")
   captain     String @default("")
   titles      Int    @default(0)
+
+  // Relation to Player model
+  players Player[]
 }
 
-// model Player {
+model Player {
+  player_id   Int    @id @default(autoincrement())
+  player_name String
+  age         Int
+  position    String
+  nationality String
 
-// }
+  team_id Int // Foreign key from Team
+  team    Team @relation(fields: [team_id], references: [team_id]) // Relation field
+}

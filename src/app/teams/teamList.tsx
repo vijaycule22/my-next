@@ -1,10 +1,8 @@
-/* eslint-disable react/jsx-key */
-//teams/TeamList.tsx
-"use client";
+
+
 import { Flex, Card } from "@radix-ui/themes";
-import axios from "axios";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 type Team = {
   team_id: number;
@@ -19,37 +17,22 @@ type Team = {
   titles?: number;
 };
 
+type TeamListProps = {
+  teams: Team[];
+};
 
-
-const TeamList = () => {
-
-
-  const [teams, setTeams] = useState<Team[]>([]);
-
-  useEffect(() => {
-    const fetchTeams = async () => {
-      try {
-        const res = await axios.get("/api/teams");
-        setTeams(res.data);
-      } catch (error) {
-        console.error("Error fetching teams:", error);
-      }
-    };
-
-    fetchTeams();
-  }, []);
-
+const teamList = ({ teams }: TeamListProps) => {
   return (
-    <>
-      <Flex direction="column" gap="2" maxWidth="350px">
-        {teams.map((team) => (
-          <Card key={team.team_id} variant="surface">
-            <Link href="/teams/players">{team.team_name}</Link>
-          </Card>
-        ))}
-      </Flex>
-    </>
+    <Flex direction="column" gap="2" maxWidth="350px">
+      {teams.map((team) => (
+        <Card key={team.team_id} variant="surface">
+          <Link href={`/teams/players/${team.team_id}`}>{team.team_name}</Link>
+          {/* <Link href={`/teams/players`}>{team.team_name}</Link> */}
+        </Card>
+      ))}
+    </Flex>
   );
 };
 
-export default TeamList;
+export default teamList;
+
