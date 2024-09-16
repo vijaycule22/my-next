@@ -9,7 +9,7 @@ interface Props {
 }
 
 const Players = ({ params: { id } }: Props) => {
-    const [playerList, setPlayers] = useState([]);
+    const [playerList, setPlayerList] = useState([]);
 
     useEffect(() => {
         getPlayersList();
@@ -22,7 +22,7 @@ const Players = ({ params: { id } }: Props) => {
 
             const data = res.data.filter((player: any) => player.team_id == id);
 
-            setPlayers(data);
+            setPlayerList(data);
         } catch (error) {
             console.error("Error fetching teams:", error);
         }
@@ -39,7 +39,7 @@ const Players = ({ params: { id } }: Props) => {
             </div>
             <div className="grid gap-4">
 
-                {playerList.map((player: any) => (
+                {playerList && playerList.map((player: any) => (
                     // eslint-disable-next-line react/jsx-key
                     <Box minWidth={"400px"} maxWidth={"400px"} key={player.player_id}>
                         <Card>
