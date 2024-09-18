@@ -20,12 +20,12 @@ export async function POST(request: NextRequest) {
       player_age: Number(body.player_age),
       player_batting_style: body.player_batting_style,
       player_bowling_style: body.player_bowling_style,
-      player_team_id: Number(body.team_id),
-      team: {
-        connect: {
-          team_id: body.team_id, // Assuming `team_id` is passed from the request
-        },
-      },
+      team_id: Number(body.team_id),
+      // team: {
+      //   connect: {
+      //     team_id: body.team_id, // Assuming `team_id` is passed from the request
+      //   },
+      // },
     } as any,
   });
   return NextResponse.json(team);

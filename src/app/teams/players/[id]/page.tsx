@@ -47,8 +47,7 @@ const Players = ({ params: { id } }: Props) => {
             player.team_id = id;
             console.log(player)
             const res = await axios.post("/api/players", player);
-            console.log(res);
-            setPlayerList(res.data)
+             await getPlayersList();
         } catch (error) {
             console.error(error);
         }
@@ -78,7 +77,7 @@ const Players = ({ params: { id } }: Props) => {
                                         {player.player_name}
                                     </Text>
                                     <Text as="div" size="2" color="gray">
-                                        {player.position}
+                                        {player.role}
                                     </Text>
                                 </Box>
                             </Flex>
