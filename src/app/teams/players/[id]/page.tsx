@@ -3,10 +3,23 @@
 import { Box, Card, Flex, Avatar, Text, Button } from "@radix-ui/themes";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import CreateTeam from "../../CreateTeam";
+import CreatePlayer from "../CreatePlayer";
 
 interface Props {
     params: { id: number }
 }
+
+type Player = {
+    player_id: number;
+    player_name: string;
+    player_role: string;
+    player_age: string;
+    player_batting_style: string;
+    player_bowling_style: string;
+    team_id: number;
+}
+
 
 const Players = ({ params: { id } }: Props) => {
     const [playerList, setPlayerList] = useState([]);
@@ -28,14 +41,24 @@ const Players = ({ params: { id } }: Props) => {
         }
     };
 
+    const onAddPlayer = async (player: any) => {
+        // setPlayerList([...playerList, player]);
+        try {
+            player.team_id = id;
+            console.log(player)
+            const res = await axios.post("/api/players", player);
+            console.log(res);
+            setPlayerList(res.data)
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
 
     return (
         <div>
-            <div className="flex justify-between items-center mb-8">
-                <h1 className="text-2xl bold">Team Name</h1>
-                <Button size={"2"} variant="outline">
-                    Add Player
-                </Button>
+            <div className="flex w-full justify-end">
+                <CreatePlayer team_id={id} addPlayer={onAddPlayer} /> {/* Pass the addTeam function */}
             </div>
             <div className="grid gap-4">
 

@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
       team_city: body.team_city,
       captain: body.captain,
       home_ground: body.home_ground,
-      owner: body.owner,
+      owner: body.owner, 
       coach: body.coach,
     },
   });

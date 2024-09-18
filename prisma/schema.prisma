@@ -49,11 +49,12 @@ model Team {
 }
 
 model Player {
-  player_id   Int    @id @default(autoincrement())
-  player_name String
-  age         Int
-  position    String
-  nationality String
+  player_id            Int    @id @default(autoincrement())
+  player_name          String
+  player_role          String
+  player_age           Int
+  player_batting_style String
+  player_bowling_style String
 
   team_id Int // Foreign key from Team
   team    Team @relation(fields: [team_id], references: [team_id]) // Relation field
