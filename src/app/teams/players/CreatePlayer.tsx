@@ -27,12 +27,8 @@ const CreatePlayer = ({ addPlayer, team_id }: CreatePlayerProps) => {
 
     const onSubmitForm = async (data: any) => {
         try {
-
-            // If successfully posted, call addTeam to update UI
-            // addTeam(res.data);
-            console.log(data)
             addPlayer(data);
-            reset(); // Optionally reset the form after submission
+            reset();
         } catch (error) {
             console.error(error);
         }
@@ -52,8 +48,8 @@ const CreatePlayer = ({ addPlayer, team_id }: CreatePlayerProps) => {
 
                     <form
                         onSubmit={handleSubmit((data) => onSubmitForm(data))}
-                        className="grid gap-4 grid-cols-2"
-                    >
+                        className="grid gap-4 grid-cols-2">
+                            
                         <label>
                             <Text as="div" size="2" mb="1" weight="bold">
                                 Team Name
@@ -76,14 +72,11 @@ const CreatePlayer = ({ addPlayer, team_id }: CreatePlayerProps) => {
                             />
                         </label>
 
-
-
-
                         <label>
                             <Text as="div" size="2" mb="1" weight="bold">
                                 Player Age
                             </Text>
-                            <TextField.Root
+                            <TextField.Root type='number'
                                 {...register("player_age")}
                                 id="player_age"
                                 placeholder="Enter player age"
@@ -112,18 +105,6 @@ const CreatePlayer = ({ addPlayer, team_id }: CreatePlayerProps) => {
                                 placeholder="Enter player bowling style"
                             />
                         </label>
-
-                        {/* <label>
-                            <Text as="div" size="2" mb="1" weight="bold">
-                                Player Team Id
-                            </Text>
-                            <TextField.Root
-                                {...register("player_team_id")}
-                                id="player_team_id"
-                                placeholder="Enter player team id"
-                            />
-                        </label> */}
-
 
 
                         <Flex gap="3" mt="4" justify="end">

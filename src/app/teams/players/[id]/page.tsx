@@ -42,7 +42,6 @@ const Players = ({ params: { id } }: Props) => {
     };
 
     const onAddPlayer = async (player: any) => {
-        // setPlayerList([...playerList, player]);
         try {
             player.team_id = id;
             console.log(player)

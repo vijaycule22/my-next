@@ -27,10 +27,8 @@ const CreateTeam = ({ addTeam }: CreateTeamProps) => {
   const onSubmitForm = async (data: any) => {
     try {
       const res = await axios.post("/api/teams", data);
-      console.log(res);
-      // If successfully posted, call addTeam to update UI
       addTeam(res.data);
-      reset(); // Optionally reset the form after submission
+      reset();
     } catch (error) {
       console.error(error);
     }
