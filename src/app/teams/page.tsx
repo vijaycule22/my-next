@@ -6,7 +6,6 @@ import CreateTeam from "./CreateTeam";
 import axios from "axios";
 
 import { useToast } from "@/hooks/use-toast"
-import { set } from "zod";
 
 type Team = {
   team_id: number;
@@ -23,14 +22,14 @@ type Team = {
 
 
 
-const teams = () => {
+const Teams = () => {
   const [teams, setTeams] = useState<Team[]>([
     {
       team_id: 12,
       team_name: "Example Team",
     },
   ]);
-  const [showDialog, setShowDialog] = React.useState(false);
+  const [showDialog, setShowDialog] = useState(false);
   const { toast } = useToast()
 
   useEffect(() => {
@@ -76,5 +75,5 @@ const teams = () => {
   );
 };
 
-export default teams;
+export default Teams;
 

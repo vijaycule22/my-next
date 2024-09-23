@@ -49,8 +49,7 @@ const CreateTeam = ({ addTeam }: CreateTeamProps) => {
 
           <form
             onSubmit={handleSubmit((data) => onSubmitForm(data))}
-            className="grid gap-4 grid-cols-2"
-          >
+            className="grid gap-4 grid-cols-2">
             <label>
               <Text as="div" size="2" mb="1" weight="bold">
                 Team Name
