@@ -1,6 +1,6 @@
 
 
-import { Flex, Card, Button } from "@radix-ui/themes";
+import { Flex, Card, Button, Dialog } from "@radix-ui/themes";
 import { Pencil, Trash2 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/alert-dialog"
 
 import { useToast } from "@/hooks/use-toast"
+import EditTeam from "./EditTeam";
 
 
 
@@ -38,10 +39,13 @@ type TeamListProps = {
   teams: Team[];
   onDeleteTeam: (team_id: number) => void;
   onShowDialog: (show: boolean) => void;
+  onEditTeam: (team_id: number, team: any) => void;
   showDialog: boolean;
 };
 
-const teamList = ({ teams, onDeleteTeam,onShowDialog, showDialog }: TeamListProps) => {
+
+
+const teamList = ({ teams, onDeleteTeam, onShowDialog, onEditTeam, showDialog }: TeamListProps) => {
 
 
 
@@ -53,7 +57,20 @@ const teamList = ({ teams, onDeleteTeam,onShowDialog, showDialog }: TeamListProp
           <div className="flex justify-between items-center">
             <Link href={`/teams/players/${team.team_id}`}>{team.team_name}</Link>
            <div className="flex gap-3">
-           <Pencil size={20}/>
+           <Dialog.Root>
+        <Dialog.Trigger>
+        <Pencil size={20}/>
+        </Dialog.Trigger>
+
+          <Dialog.Content maxWidth="600px">
+            <Dialog.Title>{"Edit Team"}</Dialog.Title>
+            <Dialog.Description size="2" mb="4">
+              {"Make changes to update the team."}
+            </Dialog.Description>
+                <EditTeam currentTeam={team} updateTeam={(data) => onEditTeam(team.team_id, data)}/>
+          </Dialog.Content>
+        </Dialog.Root>
+        
            <Trash2 size={20} onClick={() => onShowDialog(true)} />
               <AlertDialog open={showDialog}>
                 <AlertDialogContent>

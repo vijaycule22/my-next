@@ -6,6 +6,7 @@ import CreateTeam from "./CreateTeam";
 import axios from "axios";
 
 import { useToast } from "@/hooks/use-toast"
+import TeamForm from "./CreateTeam";
 
 type Team = {
   team_id: number;
@@ -52,10 +53,23 @@ const Teams = () => {
           title: "Deleted",
           description: `your team has been deleted`,
         })
-      fetchTeams();
       setShowDialog(false);
+      fetchTeams();
     } catch (error) {
       console.error("Error deleting team:", error);
+    }
+  }
+  const editTeam = async (team_id: number, data: any) => {
+   try {
+      await axios.put(`/api/teams/${team_id}`, data);
+        toast({
+          title: "Updated",
+          description: `your team has been Updated`,
+        })
+       setShowDialog(false);
+      fetchTeams();
+    } catch (error) {
+      console.error("Error Updating team:", error);
     }
   }
 
@@ -67,10 +81,11 @@ const Teams = () => {
   return (
     <>
       <div className="flex w-full justify-end">
+        {/* <TeamForm addTeam={addTeam} currentTeam="" isEditing={}/>  */}
         <CreateTeam addTeam={addTeam} /> 
       </div>
       <h1>Team List</h1>
-      <TeamList teams={teams} onDeleteTeam={deleteTeam} showDialog={showDialog} onShowDialog={(show) =>{setShowDialog(show)}}/> 
+      <TeamList teams={teams} onDeleteTeam={deleteTeam} onEditTeam={editTeam} showDialog={showDialog} onShowDialog={(show) =>{setShowDialog(show)}}/> 
     </>
   );
 };
