@@ -51,48 +51,46 @@ const teamList = ({ teams, onDeleteTeam, onShowDialog, onEditTeam, showDialog }:
 
   return (
     <>
-    <Flex direction="column" gap="2" maxWidth="350px">
-      {teams && teams.map((team) => (
-        <Card key={team.team_id} variant="surface">
-          <div className="flex justify-between items-center">
-            <Link href={`/teams/players/${team.team_id}`}>{team.team_name}</Link>
-           <div className="flex gap-3">
-           <Dialog.Root>
-        <Dialog.Trigger>
-        <Pencil size={20}/>
-        </Dialog.Trigger>
+      <Flex direction="column" gap="2" maxWidth="350px">
+        {teams && teams.map((team) => (
+          <Card key={team.team_id} variant="surface">
+            <div className="flex justify-between items-center">
+              <Link href={`/teams/players/${team.team_id}`}>{team.team_name}</Link>
+              <div className="flex gap-3">
+                <Dialog.Root>
+                  <Dialog.Trigger>
+                    <Pencil size={20} />
+                  </Dialog.Trigger>
 
-          <Dialog.Content maxWidth="600px">
-            <Dialog.Title>{"Edit Team"}</Dialog.Title>
-            <Dialog.Description size="2" mb="4">
-              {"Make changes to update the team."}
-            </Dialog.Description>
-                <EditTeam currentTeam={team} updateTeam={(data) => onEditTeam(team.team_id, data)}/>
-          </Dialog.Content>
-        </Dialog.Root>
-        
-           <Trash2 size={20} onClick={() => onShowDialog(true)} />
-              <AlertDialog open={showDialog}>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      This action cannot be undone. This will permanently delete your Team: {team.team_name}
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={() => onDeleteTeam(team.team_id)}>Delete</AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-           </div>
-          </div>
-        </Card>
-      ))}
-    </Flex>
-  
+                  <Dialog.Content maxWidth="600px">
+                    <Dialog.Title>{"Edit Team"}</Dialog.Title>
+                    <Dialog.Description size="2" mb="4">
+                      {"Make changes to update the team."}
+                    </Dialog.Description>
+                    <EditTeam currentTeam={team} updateTeam={(data) => onEditTeam(team.team_id, data)} />
+                  </Dialog.Content>
+                </Dialog.Root>
 
+                <Trash2 size={20} onClick={() => onShowDialog(true)} />
+                <AlertDialog open={showDialog}>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        This action cannot be undone. This will permanently delete your Team: {team.team_name}
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction onClick={() => onDeleteTeam(team.team_id)}>Delete</AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              </div>
+            </div>
+          </Card>
+        ))}
+      </Flex>
     </>
   );
 };

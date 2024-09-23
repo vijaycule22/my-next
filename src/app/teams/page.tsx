@@ -6,7 +6,6 @@ import CreateTeam from "./CreateTeam";
 import axios from "axios";
 
 import { useToast } from "@/hooks/use-toast"
-import TeamForm from "./CreateTeam";
 
 type Team = {
   team_id: number;
@@ -52,6 +51,7 @@ const Teams = () => {
         toast({
           title: "Deleted",
           description: `your team has been deleted`,
+          className: "bg-red-500",
         })
       setShowDialog(false);
       fetchTeams();
@@ -65,6 +65,7 @@ const Teams = () => {
         toast({
           title: "Updated",
           description: `your team has been Updated`,
+          className: "bg-green-500",
         })
        setShowDialog(false);
       fetchTeams();
@@ -81,7 +82,6 @@ const Teams = () => {
   return (
     <>
       <div className="flex w-full justify-end">
-        {/* <TeamForm addTeam={addTeam} currentTeam="" isEditing={}/>  */}
         <CreateTeam addTeam={addTeam} /> 
       </div>
       <h1>Team List</h1>
