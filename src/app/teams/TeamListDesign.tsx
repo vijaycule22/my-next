@@ -64,7 +64,7 @@ export default function IPLTeamsPage({ teamList, onDeleteTeam, onEditTeam }: ipl
 
     return (
         <div className="container mx-auto py-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {teamList.map((team) => (
                     <Card key={team.team_id} className="overflow-hidden">
                         <CardHeader className="p-0">
@@ -80,13 +80,13 @@ export default function IPLTeamsPage({ teamList, onDeleteTeam, onEditTeam }: ipl
                             </div>
                         </CardHeader>
                         <CardContent className="p-4">
-                            <div className="flex justify-between">
-                                <Link className="text-xl font-semibold mb-2" href={`/teams/players/${team.team_id}`}>{team.team_name}</Link>
+                            <div className="flex justify-between items-center mb-2">
+                                <Link className="text-md font-semibold " href={`/teams/players/${team.team_id}`}>{team.team_name}</Link>
 
-                                <div className="flex gap-3">
+                                <div className="flex gap-2 ">
                                     <Dialog.Root>
                                         <Dialog.Trigger>
-                                            <Pencil size={20} />
+                                            <Pencil className="cursor-pointer text-blue-500" size={14} />
                                         </Dialog.Trigger>
 
                                         <Dialog.Content maxWidth="600px">
@@ -98,7 +98,7 @@ export default function IPLTeamsPage({ teamList, onDeleteTeam, onEditTeam }: ipl
                                         </Dialog.Content>
                                     </Dialog.Root>
 
-                                    <Trash2 size={20} onClick={() => handleDeleteClick(team.team_id)} />
+                                    <Trash2 size={14} className="cursor-pointer text-red-500" onClick={() => handleDeleteClick(team.team_id)} />
                                     <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
                                         <AlertDialogContent>
                                             <AlertDialogHeader>
@@ -127,7 +127,7 @@ export default function IPLTeamsPage({ teamList, onDeleteTeam, onEditTeam }: ipl
                                     {team.captain}
                                 </div>
                             </div>
-                            <div className="flex justify-between items-center mt-2">
+                            <div className="flex justify-between items-center mt-1">
                                 <span className="text-sm text-gray-600">Coach</span>
                                 <div className="text-sm" >
                                     {team.coach}

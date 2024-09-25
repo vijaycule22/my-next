@@ -60,7 +60,7 @@ const Players = ({ params: { id } }: Props) => {
                 <CreatePlayer team_id={id} addPlayer={onAddPlayer} /> {/* Pass the addTeam function */}
             </div>
             <div className="grid gap-4">
-                <PlayerCard />
+                {/* <PlayerCard /> */}
                 {playerList && playerList.map((player: any) => (
                     // eslint-disable-next-line react/jsx-key
                     <Box minWidth={"400px"} maxWidth={"400px"} key={player.player_id}>
