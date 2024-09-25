@@ -18,6 +18,7 @@ import Link from "next/link";
 import EditTeam from "./EditTeam";
 import { useState } from "react";
 import { Dialog } from "@radix-ui/themes";
+import { Skeleton } from "@/components/ui/skeleton";
 
 // Mock data for IPL teams
 // const iplTeams = [
@@ -51,91 +52,100 @@ type iplTeamPageProps = {
     onDeleteTeam: (team_id: number) => void;
     onEditTeam: (team_id: number, team: any) => void;
 }
-
-export default function IPLTeamsPage({ teamList, onDeleteTeam, onEditTeam }: iplTeamPageProps) {
-
-    const [showDialog, setShowDialog] = useState(false);
+export default function IPLTeamsPage({ teamList = [], onDeleteTeam, onEditTeam }: iplTeamPageProps) {
     const [teamIdToDelete, setTeamIdToDelete] = useState<number | null>(null);
 
     const handleDeleteClick = (team_id: number) => {
         setTeamIdToDelete(team_id);
-        setShowDialog(true);
+    };
+
+    const handleDeleteConfirm = () => {
+        if (teamIdToDelete !== null) {
+            onDeleteTeam(teamIdToDelete);
+            setTeamIdToDelete(null); // Reset after deletion
+        }
     };
 
     return (
         <div className="container mx-auto py-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {teamList.map((team) => (
-                    <Card key={team.team_id} className="overflow-hidden">
-                        <CardHeader className="p-0">
-                            <div
-                                className="h-24 flex items-center justify-center"
-                                style={{
-                                    background: `linear-gradient(135deg, ${team.primaryColor} 0%, ${team.primaryColor} 50%, ${team.secondaryColor} 50%, ${team.secondaryColor} 100%)`
-                                }}
-                            >
-                                <CardTitle className="text-4xl font-bold text-white drop-shadow-lg">
-                                    {team.short_name}
-                                </CardTitle>
-                            </div>
-                        </CardHeader>
-                        <CardContent className="p-4">
-                            <div className="flex justify-between items-center mb-2">
-                                <Link className="text-md font-semibold " href={`/teams/players/${team.team_id}`}>{team.team_name}</Link>
-
-                                <div className="flex gap-2 ">
-                                    <Dialog.Root>
-                                        <Dialog.Trigger>
-                                            <Pencil className="cursor-pointer text-blue-500" size={14} />
-                                        </Dialog.Trigger>
-
-                                        <Dialog.Content maxWidth="600px">
-                                            <Dialog.Title>{"Edit Team"}</Dialog.Title>
-                                            <Dialog.Description size="2" mb="4">
-                                                {"Make changes to update the team."}
-                                            </Dialog.Description>
-                                            <EditTeam currentTeam={team} updateTeam={(data) => onEditTeam(team.team_id, data)} />
-                                        </Dialog.Content>
-                                    </Dialog.Root>
-
-                                    <Trash2 size={14} className="cursor-pointer text-red-500" onClick={() => handleDeleteClick(team.team_id)} />
-                                    <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
-                                        <AlertDialogContent>
-                                            <AlertDialogHeader>
-                                                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                                                <AlertDialogDescription>
-                                                    This action cannot be undone. This will permanently delete your Team: <span className="font-bold"> {team.team_name} </span>
-                                                </AlertDialogDescription>
-                                            </AlertDialogHeader>
-                                            <AlertDialogFooter>
-                                                <AlertDialogCancel onClick={() => setShowDialog(false)}>Cancel</AlertDialogCancel>
-                                                <AlertDialogAction onClick={() => {
-                                                    if (teamIdToDelete) {
-                                                        onDeleteTeam(teamIdToDelete);
-                                                        setShowDialog(false);
-                                                        setTeamIdToDelete(null); // Reset the team ID
-                                                    }
-                                                }}>Delete</AlertDialogAction>
-                                            </AlertDialogFooter>
-                                        </AlertDialogContent>
-                                    </AlertDialog>
+                {teamList && teamList.length > 0 ? (
+                    teamList.map((team) => (
+                        <Card key={team.team_id} className="overflow-hidden">
+                            <CardHeader className="p-0">
+                                <div
+                                    className="h-24 flex items-center justify-center"
+                                    style={{
+                                        background: `linear-gradient(135deg, ${team.primaryColor} 0%, ${team.primaryColor} 50%, ${team.secondaryColor} 50%, ${team.secondaryColor} 100%)`
+                                    }}
+                                >
+                                    <CardTitle className="text-4xl font-bold text-white drop-shadow-lg">
+                                        {team.short_name}
+                                    </CardTitle>
                                 </div>
-                            </div>
-                            <div className="flex justify-between items-center">
-                                <span className="text-sm text-gray-600">Captain</span>
-                                <div className="text-sm">
-                                    {team.captain}
+                            </CardHeader>
+                            <CardContent className="p-4">
+                                <div className="flex justify-between items-center mb-2">
+                                    <Link className="text-md font-semibold " href={`/teams/players/${team.team_id}`}>{team.team_name}</Link>
+
+                                    <div className="flex gap-2 ">
+                                        <Dialog.Root>
+                                            <Dialog.Trigger>
+                                                <Pencil className="cursor-pointer text-blue-500" size={14} />
+                                            </Dialog.Trigger>
+
+                                            <Dialog.Content maxWidth="600px">
+                                                <Dialog.Title>{"Edit Team"}</Dialog.Title>
+                                                <Dialog.Description size="2" mb="4">
+                                                    {"Make changes to update the team."}
+                                                </Dialog.Description>
+                                                <EditTeam currentTeam={team} updateTeam={(data) => onEditTeam(team.team_id, data)} />
+                                            </Dialog.Content>
+                                        </Dialog.Root>
+
+                                        <Trash2
+                                            size={14}
+                                            className="cursor-pointer text-red-500"
+                                            onClick={() => handleDeleteClick(team.team_id)}
+                                        />
+                                        {/* Alert dialog for delete confirmation */}
+                                        <AlertDialog open={teamIdToDelete === team.team_id} onOpenChange={() => setTeamIdToDelete(null)}>
+                                            <AlertDialogContent>
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                                                    <AlertDialogDescription>
+                                                        This action cannot be undone. This will permanently delete your Team: <span className="font-bold"> {team.team_name} </span>
+                                                    </AlertDialogDescription>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                    <AlertDialogCancel onClick={() => setTeamIdToDelete(null)}>Cancel</AlertDialogCancel>
+                                                    <AlertDialogAction onClick={handleDeleteConfirm}>Delete</AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="flex justify-between items-center mt-1">
-                                <span className="text-sm text-gray-600">Coach</span>
-                                <div className="text-sm" >
-                                    {team.coach}
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm text-gray-600">Captain</span>
+                                    <div className="text-sm">
+                                        {team.captain}
+                                    </div>
                                 </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-                ))}
+                                <div className="flex justify-between items-center mt-1">
+                                    <span className="text-sm text-gray-600">Coach</span>
+                                    <div className="text-sm" >
+                                        {team.coach}
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    ))) : (
+                    <>
+                        <Skeleton className="w-[250px] h-[206px]" />
+                        <Skeleton className="w-[250px] h-[206px]" />
+                        <Skeleton className="w-[250px] h-[206px]" />
+                    </>
+                )}
             </div>
         </div>
     )
