@@ -1,11 +1,11 @@
 
 'use client'
 import React, { useEffect, useState } from "react";
-import TeamList from "./teamList";
 import CreateTeam from "./CreateTeam";
 import axios from "axios";
 
 import { useToast } from "@/hooks/use-toast"
+import IPLTeamsPage from "./TeamListDesign";
 
 type Team = {
   team_id: number;
@@ -18,17 +18,14 @@ type Team = {
   coach?: string;
   captain?: string;
   titles?: number;
+  primaryColor?: string;
+  secondaryColor?: string;
 };
 
 
 
 const Teams = () => {
-  const [teams, setTeams] = useState<Team[]>([
-    {
-      team_id: 12,
-      team_name: "Example Team",
-    },
-  ]);
+  const [teams, setTeams] = useState<Team[]>([]);
   const [showDialog, setShowDialog] = useState(false);
   const { toast } = useToast()
 
@@ -84,8 +81,8 @@ const Teams = () => {
       <div className="flex w-full justify-end">
         <CreateTeam addTeam={addTeam} />
       </div>
-      <h1>Team List</h1>
-      <TeamList teams={teams} onDeleteTeam={deleteTeam} onEditTeam={editTeam} />
+      {/* <TeamList teams={teams} onDeleteTeam={deleteTeam} onEditTeam={editTeam} /> */}
+      <IPLTeamsPage teamList={teams} onDeleteTeam={deleteTeam} onEditTeam={editTeam} />
     </>
   );
 };

@@ -5,6 +5,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CreateTeam from "../../CreateTeam";
 import CreatePlayer from "../CreatePlayer";
+import PlayerCard from "../PlayerCard";
 
 interface Props {
     params: { id: number }
@@ -46,7 +47,7 @@ const Players = ({ params: { id } }: Props) => {
             player.team_id = id;
             console.log(player)
             const res = await axios.post("/api/players", player);
-             await getPlayersList();
+            await getPlayersList();
         } catch (error) {
             console.error(error);
         }
@@ -59,7 +60,7 @@ const Players = ({ params: { id } }: Props) => {
                 <CreatePlayer team_id={id} addPlayer={onAddPlayer} /> {/* Pass the addTeam function */}
             </div>
             <div className="grid gap-4">
-
+                <PlayerCard />
                 {playerList && playerList.map((player: any) => (
                     // eslint-disable-next-line react/jsx-key
                     <Box minWidth={"400px"} maxWidth={"400px"} key={player.player_id}>

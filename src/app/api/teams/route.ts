@@ -18,6 +18,7 @@ export async function POST(request: NextRequest) {
       home_ground: body.home_ground,
       owner: body.owner, 
       coach: body.coach,
+      titles: 0,
       primaryColor: body.primaryColor,
       secondaryColor: body.secondaryColor,
     },

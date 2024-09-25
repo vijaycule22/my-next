@@ -2,6 +2,7 @@
 import { Box, Card, Flex, Avatar, Text, Button } from "@radix-ui/themes";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import PlayerCard from "./PlayerCard";
 
 const Players = () => {
   const [playerList, setPlayers] = useState([]);
@@ -27,12 +28,14 @@ const Players = () => {
     <div>
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl bold">Team Name</h1>
+
         <Button size={"2"} variant="outline">
           Add Player
+
         </Button>
+        <PlayerCard />
       </div>
       <div className="grid gap-4">
-
 
         {playerList.map((player: any) => (
           // eslint-disable-next-line react/jsx-key
@@ -59,6 +62,7 @@ const Players = () => {
         ))}
 
       </div>
+
     </div>
   );
 };

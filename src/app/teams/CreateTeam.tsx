@@ -18,9 +18,9 @@ type CreateTeam = {
   owner?: string;
   coach?: string;
   captain?: string;
+  titles?: number;
   primaryColor?: string;
   secondaryColor?: string;
-  titles?: number;
 };
 
 const CreateTeam = ({ addTeam }: CreateTeamProps) => {

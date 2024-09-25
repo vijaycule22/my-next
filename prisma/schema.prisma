@@ -24,9 +24,9 @@ model Team {
   owner          String @default("")
   coach          String @default("")
   captain        String @default("")
+  titles         Int    @default(0)
   primaryColor   String @default("")
   secondaryColor String @default("")
-  titles         Int    @default(0)
 
   // Relation to Player model
   players Player[]

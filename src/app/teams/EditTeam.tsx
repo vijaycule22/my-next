@@ -22,6 +22,8 @@ type CreateTeam = {
   coach?: string;
   captain?: string;
   titles?: number;
+  primaryColor?: string;
+  secondaryColor?: string;
 };
 
 const EditTeam = ({ updateTeam, currentTeam }: CreateTeamProps) => {
@@ -141,6 +143,27 @@ const EditTeam = ({ updateTeam, currentTeam }: CreateTeamProps) => {
           id="titles"
           {...register("titles")}
           placeholder="Enter Titles Won"
+        />
+      </label>
+
+      <label>
+        <Text as="div" size="2" mb="1" weight="bold">
+          Primary Color
+        </Text>
+        <TextField.Root
+          id="primaryColor"
+          {...register("primaryColor")}
+          placeholder="Enter Primary Color"
+        />
+      </label>
+      <label>
+        <Text as="div" size="2" mb="1" weight="bold">
+          Secondary Color
+        </Text>
+        <TextField.Root
+          id="secondaryColor"
+          {...register("secondaryColor")}
+          placeholder="Enter Secondary Color"
         />
       </label>
 
