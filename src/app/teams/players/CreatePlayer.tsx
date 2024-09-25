@@ -49,10 +49,10 @@ const CreatePlayer = ({ addPlayer, team_id }: CreatePlayerProps) => {
                     <form
                         onSubmit={handleSubmit((data) => onSubmitForm(data))}
                         className="grid gap-4 grid-cols-2">
-                            
+
                         <label>
                             <Text as="div" size="2" mb="1" weight="bold">
-                                Team Name
+                                Player Name
                             </Text>
                             <TextField.Root
                                 {...register("player_name")}
@@ -105,6 +105,7 @@ const CreatePlayer = ({ addPlayer, team_id }: CreatePlayerProps) => {
                                 placeholder="Enter player bowling style"
                             />
                         </label>
+
 
 
                         <Flex gap="3" mt="4" justify="end">

@@ -15,16 +15,18 @@ datasource db {
 }
 
 model Team {
-  team_id     Int    @id @default(autoincrement())
-  team_name   String @unique
-  short_name  String
-  team_logo   String
-  team_city   String
-  home_ground String @default("")
-  owner       String @default("")
-  coach       String @default("")
-  captain     String @default("")
-  titles      Int    @default(0)
+  team_id        Int    @id @default(autoincrement())
+  team_name      String @unique
+  short_name     String
+  team_logo      String
+  team_city      String
+  home_ground    String @default("")
+  owner          String @default("")
+  coach          String @default("")
+  captain        String @default("")
+  primaryColor   String @default("")
+  secondaryColor String @default("")
+  titles         Int    @default(0)
 
   // Relation to Player model
   players Player[]

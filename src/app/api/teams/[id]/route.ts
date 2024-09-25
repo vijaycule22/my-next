@@ -28,6 +28,8 @@ export async function PUT(request: NextRequest, { params }: any) {
       home_ground: body.home_ground,
       owner: body.owner, 
       coach: body.coach,
+      primaryColor: body.primaryColor,
+      secondaryColor: body.secondaryColor,
     },
   });
   return NextResponse.json(team);

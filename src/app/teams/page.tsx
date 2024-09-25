@@ -46,13 +46,13 @@ const Teams = () => {
   };
 
   const deleteTeam = async (team_id: number) => {
-   try {
+    try {
       await axios.delete(`/api/teams/${team_id}`);
-        toast({
-          title: "Deleted",
-          description: `your team has been deleted`,
-          className: "bg-red-500",
-        })
+      toast({
+        title: "Deleted",
+        description: `your team has been deleted`,
+        className: "bg-red-500",
+      })
       setShowDialog(false);
       fetchTeams();
     } catch (error) {
@@ -60,14 +60,14 @@ const Teams = () => {
     }
   }
   const editTeam = async (team_id: number, data: any) => {
-   try {
+    try {
       await axios.put(`/api/teams/${team_id}`, data);
-        toast({
-          title: "Updated",
-          description: `your team has been Updated`,
-          className: "bg-green-500",
-        })
-       setShowDialog(false);
+      toast({
+        title: "Updated",
+        description: `your team has been Updated`,
+        className: "bg-green-500",
+      })
+      setShowDialog(false);
       fetchTeams();
     } catch (error) {
       console.error("Error Updating team:", error);
@@ -82,10 +82,10 @@ const Teams = () => {
   return (
     <>
       <div className="flex w-full justify-end">
-        <CreateTeam addTeam={addTeam} /> 
+        <CreateTeam addTeam={addTeam} />
       </div>
       <h1>Team List</h1>
-      <TeamList teams={teams} onDeleteTeam={deleteTeam} onEditTeam={editTeam} showDialog={showDialog} onShowDialog={(show) =>{setShowDialog(show)}}/> 
+      <TeamList teams={teams} onDeleteTeam={deleteTeam} onEditTeam={editTeam} />
     </>
   );
 };

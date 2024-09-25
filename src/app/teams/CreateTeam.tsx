@@ -18,6 +18,8 @@ type CreateTeam = {
   owner?: string;
   coach?: string;
   captain?: string;
+  primaryColor?: string;
+  secondaryColor?: string;
   titles?: number;
 };
 
@@ -138,6 +140,27 @@ const CreateTeam = ({ addTeam }: CreateTeamProps) => {
                 id="titles"
                 {...register("titles")}
                 placeholder="Enter Titles Won"
+              />
+            </label>
+
+            <label>
+              <Text as="div" size="2" mb="1" weight="bold">
+                Primary Color
+              </Text>
+              <TextField.Root
+                id="primaryColor"
+                {...register("primaryColor")}
+                placeholder="Enter primary color"
+              />
+            </label>
+            <label>
+              <Text as="div" size="2" mb="1" weight="bold">
+                Secondary Color
+              </Text>
+              <TextField.Root
+                id="secondaryColor"
+                {...register("secondaryColor")}
+                placeholder="Enter secondary color"
               />
             </label>
 

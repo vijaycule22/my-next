@@ -18,6 +18,8 @@ export async function POST(request: NextRequest) {
       home_ground: body.home_ground,
       owner: body.owner, 
       coach: body.coach,
+      primaryColor: body.primaryColor,
+      secondaryColor: body.secondaryColor,
     },
   });
   return NextResponse.json(team);

@@ -1,9 +1,7 @@
-
-
-import { Flex, Card, Button, Dialog } from "@radix-ui/themes";
+import { Flex, Card, Button, Dialog, Avatar } from "@radix-ui/themes";
 import { Pencil, Trash2 } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
 import {
   AlertDialog,
@@ -19,8 +17,7 @@ import {
 
 import { useToast } from "@/hooks/use-toast"
 import EditTeam from "./EditTeam";
-
-
+import IPLTeamsPage from "./TeamListDesign";
 
 type Team = {
   team_id: number;
@@ -38,16 +35,17 @@ type Team = {
 type TeamListProps = {
   teams: Team[];
   onDeleteTeam: (team_id: number) => void;
-  onShowDialog: (show: boolean) => void;
   onEditTeam: (team_id: number, team: any) => void;
-  showDialog: boolean;
 };
 
+const TeamList = ({ teams, onDeleteTeam, onEditTeam }: TeamListProps) => {
+  const [showDialog, setShowDialog] = useState(false);
+  const [teamIdToDelete, setTeamIdToDelete] = useState<number | null>(null);
 
-
-const teamList = ({ teams, onDeleteTeam, onShowDialog, onEditTeam, showDialog }: TeamListProps) => {
-
-
+  const handleDeleteClick = (team_id: number) => {
+    setTeamIdToDelete(team_id);
+    setShowDialog(true);
+  };
 
   return (
     <>
@@ -55,7 +53,18 @@ const teamList = ({ teams, onDeleteTeam, onShowDialog, onEditTeam, showDialog }:
         {teams && teams.map((team) => (
           <Card key={team.team_id} variant="surface">
             <div className="flex justify-between items-center">
-              <Link href={`/teams/players/${team.team_id}`}>{team.team_name}</Link>
+
+
+
+              <Flex gap="3" align="center">
+                <Avatar
+                  size="4"
+                  src={team.team_logo}
+                  radius="full"
+                  fallback={team.short_name || "T"}
+                />
+                <Link href={`/teams/players/${team.team_id}`}>{team.team_name}</Link>
+              </Flex>
               <div className="flex gap-3">
                 <Dialog.Root>
                   <Dialog.Trigger>
@@ -71,18 +80,24 @@ const teamList = ({ teams, onDeleteTeam, onShowDialog, onEditTeam, showDialog }:
                   </Dialog.Content>
                 </Dialog.Root>
 
-                <Trash2 size={20} onClick={() => onShowDialog(true)} />
-                <AlertDialog open={showDialog}>
+                <Trash2 size={20} onClick={() => handleDeleteClick(team.team_id)} />
+                <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
                   <AlertDialogContent>
                     <AlertDialogHeader>
                       <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                       <AlertDialogDescription>
-                        This action cannot be undone. This will permanently delete your Team: {team.team_name}
+                        This action cannot be undone. This will permanently delete your Team: <span className="font-bold"> {teamIdToDelete ? teams.find(t => t.team_id === teamIdToDelete)?.team_name : ''} </span>
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction onClick={() => onDeleteTeam(team.team_id)}>Delete</AlertDialogAction>
+                      <AlertDialogCancel onClick={() => setShowDialog(false)}>Cancel</AlertDialogCancel>
+                      <AlertDialogAction onClick={() => {
+                        if (teamIdToDelete) {
+                          onDeleteTeam(teamIdToDelete);
+                          setShowDialog(false);
+                          setTeamIdToDelete(null); // Reset the team ID
+                        }
+                      }}>Delete</AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>
@@ -91,9 +106,9 @@ const teamList = ({ teams, onDeleteTeam, onShowDialog, onEditTeam, showDialog }:
           </Card>
         ))}
       </Flex>
+      <IPLTeamsPage />
     </>
   );
 };
 
-export default teamList;
-
+export default TeamList;

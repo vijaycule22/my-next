@@ -13,4 +13,6 @@ export const teamSchema = z.object({
   home_ground: z.string().nullable(),
   owner: z.string().nullable(),
   coach: z.string().nullable(),
+  primaryColor: z.string().nullable(),
+  secondaryColor: z.string().nullable(),
 });
